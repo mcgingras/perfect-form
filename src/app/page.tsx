@@ -29,8 +29,12 @@ export default function Home() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <TextInput<FormValues> name="firstName" label="First Name" />
-        <TextInput<FormValues> name="lastName" label="Last Name" />
+        {/* It can be like this */}
+        {/* <TextInput<FormValues> name="firstName" label="First Name" />
+        <TextInput<FormValues> name="lastName" label="Last Name" /> */}
+        {/* Or like this */}
+        <TextInput name="firstName" label="First Name" />
+        <TextInput name="lastName" label="Last Name" />
         <button type="submit">Submit</button>
       </form>
     </FormProvider>
