@@ -1,14 +1,10 @@
-"use client";
+'use client';
 
+import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import TextInput from "@/components/TextInput";
-import TextInputTwo from "@/components/TextInputTwo";
-import TextInputThree from "@/components/TextInputThree";
-import TextInputFour from "@/components/TextInputFour";
-import TextInputFive from "@/components/TextInputFive";
-import { FormField, FormItem, FormLabel, FormControl } from "@/components/Form";
 
 const formSchema = z.object({
   firstName: z.string().min(2).max(50),
@@ -16,7 +12,8 @@ const formSchema = z.object({
 });
 
 export default function Home() {
-  type FormValues = z.infer<typeof formSchema>;
+  type FormValues = z.infer<typeof formSchema> & { [key: string]: string };
+
   const methods = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -25,46 +22,16 @@ export default function Home() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  function onSubmit(values: FormValues) {
     console.log(values);
   }
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {/* valid name */}
-        <input type="text" {...methods.register("firstName")} />
-        {/* invalid name, caught by ts */}
-        <input type="text" {...methods.register("bingBong")} />
-        {/* valid name */}
-        <TextInput name="firstName" />
-        {/* invalid name, ts doesn't catch it */}
-        <TextInput name="bingBong" />
-        {/* invalid name, ts catches it but requires this gross <FormValues> generic type */}
-        <TextInput<FormValues> name="bingBong" />
-        {/* invalid name, ts doesn't catch it */}
-        <TextInputTwo name="bingBong" />
-        {/* invalid name, ts doesn't catch it */}
-        <TextInputThree name="bingBong" />
-        {/* invalid name, ts doesn't catch it */}
-        <TextInputFour fieldValues={FormValues} name="bingBong" />
-        {/* invalid name, ts doesn't catch it */}
-        <TextInputFive name="bingBong" />
-        {/* invalid name, ts catches it but requires redundently passing control */}
-        <FormField
-          control={methods.control}
-          name="bingBong" // should be "firstName" or "lastName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>First name</FormLabel>
-              <FormControl>
-                <input type="text" placeholder="frog" {...field} />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+        {/* <TextInput name="notInFormSchema" label="First Name" />
+        <TextInput name="lastName" label="Last Name" /> */}
+        <TextInput<FormValues> name="notInFormSchema" label="Not In Form Schema" /> 
         <button type="submit">Submit</button>
       </form>
     </FormProvider>
