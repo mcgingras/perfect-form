@@ -29,9 +29,9 @@ export default function Home() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <TextInput name="firstName" label="First Name" />
-        <TextInput name="lastName" label="Last Name" />
-        <TextInput<FormValues> name="notInFormSchema" label="Not In Form Schema" /> {/* Add new TextInput */}
+        {/* <TextInput name="notInFormSchema" label="First Name" />
+        <TextInput name="lastName" label="Last Name" /> */}
+        <TextInput<FormValues> name="notInFormSchema" label="Not In Form Schema" /> 
         <button type="submit">Submit</button>
       </form>
     </FormProvider>
