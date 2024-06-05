@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
@@ -12,7 +12,7 @@ const formSchema = z.object({
 });
 
 export default function Home() {
-  type FormValues = z.infer<typeof formSchema>;
+  type FormValues = z.infer<typeof formSchema> & { [key: string]: string };
 
   const methods = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -29,12 +29,9 @@ export default function Home() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {/* It can be like this */}
-        {/* <TextInput<FormValues> name="firstName" label="First Name" />
-        <TextInput<FormValues> name="lastName" label="Last Name" /> */}
-        {/* Or like this */}
         <TextInput name="firstName" label="First Name" />
         <TextInput name="lastName" label="Last Name" />
+        <TextInput<FormValues> name="notInFormSchema" label="Not In Form Schema" /> {/* Add new TextInput */}
         <button type="submit">Submit</button>
       </form>
     </FormProvider>

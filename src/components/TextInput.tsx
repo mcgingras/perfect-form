@@ -18,7 +18,10 @@ const TextInput = <TFieldValues extends FieldValues>({
       <Controller
         control={control}
         name={name}
-        render={({ field }) => <input type="text" {...field} />}
+        render={({ field }) => {
+          console.log("Value of", name, ":", field.value); // Add this line for debugging
+          return <input type="text" {...field} />;
+        }}
       />
       {errors[name] && <p>{errors[name]?.message?.toString()}</p>}
     </div>
