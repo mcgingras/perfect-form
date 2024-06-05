@@ -15,8 +15,10 @@ const formSchema = z.object({
   lastName: z.string().min(2).max(50),
 });
 
+export type FormValues = z.infer<typeof formSchema>;
+
 export default function Home() {
-  type FormValues = z.infer<typeof formSchema>;
+  // type FormValues = z.infer<typeof formSchema>;
   const methods = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,13 +45,13 @@ export default function Home() {
         {/* invalid name, ts doesn't catch it */}
         <TextInput name="bingBong" />
         {/* invalid name, ts catches it but requires this gross <FormValues> generic type */}
-        <TextInput<FormValues> name="bingBong" />
+        {/* <TextInput<FormValues> name="bingBong" /> */}
         {/* invalid name, ts doesn't catch it */}
         <TextInputTwo name="bingBong" />
         {/* invalid name, ts doesn't catch it */}
         <TextInputThree name="bingBong" />
         {/* invalid name, ts doesn't catch it */}
-        <TextInputFour fieldValues={FormValues} name="bingBong" />
+        {/* <TextInputFour fieldValues={FormValues} name="bingBong" /> */}
         {/* invalid name, ts doesn't catch it */}
         <TextInputFive name="bingBong" />
         {/* invalid name, ts catches it but requires redundently passing control */}
